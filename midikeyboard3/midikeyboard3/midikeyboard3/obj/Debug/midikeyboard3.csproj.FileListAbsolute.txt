@@ -1,0 +1,13 @@
+c:\users\hester\documents\visual studio 2015\Projects\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.exe.config
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.exe.config
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.exe
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.pdb
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\InputManager.dll
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\InputSimulator.dll
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\Midi.dll
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csprojResolveAssemblyReference.cache
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Form1.resources
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Properties.Resources.resources
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csproj.GenerateResource.Cache
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.exe
+C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.pdb
