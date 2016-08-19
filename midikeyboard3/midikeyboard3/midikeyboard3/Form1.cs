@@ -80,6 +80,13 @@ namespace midikeyboard3
             dedicatedOctave = cbDedicatedOctaveMode.Checked;
             midiDriver.enableInput(checkBox1.Checked);
             midiDriver.setChannel(int.Parse(cmbMidiChannel.Text));
+            var monitors = midiDriver.listMonitors();
+            foreach (var monitor in monitors)
+                cbxMonitor.Items.Add(monitor);
+            int targetIndex = cbxMonitor.Items.IndexOf(cbxMonitor.Text);
+            if (targetIndex == -1)
+                targetIndex = 0;
+            cbxMonitor.SelectedIndex = targetIndex;
             OctaveChangeLock = new Mutex();
         }
         List<Keys> downKeys;
@@ -452,6 +459,11 @@ namespace midikeyboard3
         {
             Properties.Settings.Default.Save();
             midiDriver.setChannel(int.Parse(cmbMidiChannel.Text));
+        }
+
+        private void cbxMonitor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            midiDriver.selectMonitor(cbxMonitor.SelectedIndex);
         }
 
 

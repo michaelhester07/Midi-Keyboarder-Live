@@ -132,11 +132,12 @@
             // 
             this.cbxMonitor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxMonitor.FormattingEnabled = true;
-            this.cbxMonitor.Location = new System.Drawing.Point(201, 185);
+            this.cbxMonitor.Location = new System.Drawing.Point(251, 184);
             this.cbxMonitor.Margin = new System.Windows.Forms.Padding(4);
             this.cbxMonitor.Name = "cbxMonitor";
             this.cbxMonitor.Size = new System.Drawing.Size(160, 24);
             this.cbxMonitor.TabIndex = 4;
+            this.cbxMonitor.SelectedIndexChanged += new System.EventHandler(this.cbxMonitor_SelectedIndexChanged);
             // 
             // cbEnableServer
             // 
@@ -177,7 +178,7 @@
             "14",
             "15",
             "16"});
-            this.cmbMidiChannel.Location = new System.Drawing.Point(201, 146);
+            this.cmbMidiChannel.Location = new System.Drawing.Point(251, 146);
             this.cmbMidiChannel.Name = "cmbMidiChannel";
             this.cmbMidiChannel.Size = new System.Drawing.Size(121, 24);
             this.cmbMidiChannel.TabIndex = 7;
