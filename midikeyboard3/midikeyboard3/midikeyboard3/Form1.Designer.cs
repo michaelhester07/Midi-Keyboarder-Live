@@ -217,9 +217,7 @@
             // cbHardwareKeyboard
             // 
             this.cbHardwareKeyboard.AutoSize = true;
-            this.cbHardwareKeyboard.Checked = global::midikeyboard3.Properties.Settings.Default.EnableMidi;
-            this.cbHardwareKeyboard.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::midikeyboard3.Properties.Settings.Default, "EnableMidi", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cbHardwareKeyboard.Location = new System.Drawing.Point(189, 174);
+            this.cbHardwareKeyboard.Location = new System.Drawing.Point(189, 220);
             this.cbHardwareKeyboard.Name = "cbHardwareKeyboard";
             this.cbHardwareKeyboard.Size = new System.Drawing.Size(120, 17);
             this.cbHardwareKeyboard.TabIndex = 9;

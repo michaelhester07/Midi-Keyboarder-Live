@@ -13,3 +13,15 @@ C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboar
 C:\Users\potato1\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\midikeyboard3.exe.config
 C:\Users\potato1\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.exe
 C:\Users\potato1\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.pdb
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\midikeyboard3.exe.config
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.exe
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.pdb
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\midikeyboard3.exe
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\midikeyboard3.pdb
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\InputManager.dll
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\InputSimulator.dll
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\Midi.dll
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.csprojResolveAssemblyReference.cache
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.Form1.resources
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.Properties.Resources.resources
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.csproj.GenerateResource.Cache
