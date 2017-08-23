@@ -17,8 +17,20 @@ namespace midikeyboard3
     {
         bool dedicatedOctave = false;
         Mutex OctaveChangeLock;
+        System.IO.Ports.SerialPort hwkeyboard;
+
+
+
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd); 
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        void setGW2Foreground()
+        {
+            var Guildwars2 = System.Diagnostics.Process.GetProcessesByName("Gw2");
+            if (Guildwars2.Length == 0)
+                Guildwars2 = System.Diagnostics.Process.GetProcessesByName("Gw2-64");
+            if (Guildwars2.Length != 0)
+                SetForegroundWindow(Guildwars2[0].MainWindowHandle);
+        }
 
        public class clientInstrument
         {
@@ -60,7 +72,7 @@ namespace midikeyboard3
             return oIP;
 
         }
-
+        System.Threading.Tasks.TaskFactory taskfactory;
 
         public Form1()
         {
@@ -86,22 +98,53 @@ namespace midikeyboard3
             int targetIndex = cbxMonitor.Items.IndexOf(cbxMonitor.Text);
             if (targetIndex == -1)
                 targetIndex = 0;
-            cbxMonitor.SelectedIndex = targetIndex;
+            if(cbxMonitor.Items.Count > 0) //microsoft removed the GS wavesynth in windows 10! there is no longer a guaranteed monitor
+                cbxMonitor.SelectedIndex = targetIndex;
             OctaveChangeLock = new Mutex();
+            taskfactory = new TaskFactory();
+
+            string[] ports = System.IO.Ports.SerialPort.GetPortNames();
+            foreach (string p in ports)
+                cbxSerialPort.Items.Add(p);
+
+          //  System.Threading.Thread delayedNoteHandler = new Thread(delayedNoteHandlerThread);
+           // delayedNoteHandler.Start();
         }
+        
+
+
+        
         List<Keys> downKeys;
 
-        void setGW2Foreground()
-        {
-            var Guildwars2 = System.Diagnostics.Process.GetProcessesByName("Gw2");
-            if(Guildwars2.Length == 0)
-                 Guildwars2 = System.Diagnostics.Process.GetProcessesByName("Gw2-64");
-            if (Guildwars2.Length != 0)
-                SetForegroundWindow(Guildwars2[0].MainWindowHandle);
-        }
-
+       
 
         int currentOctave = 4;
+       void doKeyPress(Keys k, int delay)
+        {
+            if(cbHardwareKeyboard.Checked && hwkeyboard != null) //arduino handles delay
+            {
+                switch(k)
+                {
+
+                    case Keys.D1: hwkeyboard.Write("1"); break;
+                    case Keys.D2: hwkeyboard.Write("2"); break;
+                    case Keys.D3: hwkeyboard.Write("3"); break;
+                    case Keys.D4: hwkeyboard.Write("4"); break;
+                    case Keys.D5: hwkeyboard.Write("5"); break;
+                    case Keys.D6: hwkeyboard.Write("6"); break;
+                    case Keys.D7: hwkeyboard.Write("7"); break;
+                    case Keys.D8: hwkeyboard.Write("8"); break;
+                    case Keys.D9: hwkeyboard.Write("9"); break;
+                    case Keys.D0: hwkeyboard.Write("0"); break;
+                       
+
+                }
+            }
+            else
+            {
+                InputManager.Keyboard.KeyPress(k, delay);
+            }
+        }
         void handleNote(string note)
         {
            
@@ -112,33 +155,38 @@ namespace midikeyboard3
             //    return;
 
             //}
-            setGW2Foreground();
+            int lagBudget = (int)200;
+           // setGW2Foreground();
             if (note == string.Empty && cbConnect.Checked)
             {
                
 
                 return; //disconnected
             }
-
+            OctaveChangeLock.WaitOne(1000);
             bool down = note[note.Length - 1] == '+';
             int octave = int.Parse("" + note[note.Length - 2]);
+            if (!dedicatedOctave && octave <= 2 && nudOctaveID.Value >= 3)
+                octave = 3;
             bool highC = false;
             if (octave - 1 == currentOctave && note[0] == 'C' && !dedicatedOctave)
             {
+                System.Diagnostics.Trace.WriteLine("high c detected");
                 highC = true;
                 octave = currentOctave;
             }
             if (down)
             {
                
-                if (!dedicatedOctave || nudOctaveID.Value < 2 || nudOctaveID.Value == 6) //set to 6 when using bell to use upper octave
+                if (!dedicatedOctave || nudOctaveID.Value < 2 ) //set to 6 when using bell to use upper octave
                 {
-                    OctaveChangeLock.WaitOne(1000) ;
+                  
                     while (currentOctave < octave)
                     {
                         
-                        InputManager.Keyboard.KeyPress(Keys.D0, 25);
-                        System.Threading.Thread.Sleep(100);
+                        doKeyPress(Keys.D0, 25);
+                        lagBudget -= (int)dynamicDelay;
+                        System.Threading.Thread.Sleep((int)100);
                         currentOctave++;
                         if (octave - 1 == currentOctave && note[0] == 'C' && !dedicatedOctave)
                         {
@@ -148,18 +196,22 @@ namespace midikeyboard3
                     }
                     while (currentOctave > octave)
                     {
-                        InputManager.Keyboard.KeyPress(Keys.D9, 25);
-                        System.Threading.Thread.Sleep(100);
+                        doKeyPress(Keys.D9, 25);
+                        lagBudget -= (int)dynamicDelay;
+                         System.Threading.Thread.Sleep((int)100);
                         currentOctave--;
                     }
-                    OctaveChangeLock.ReleaseMutex();
+                 
                 }
                 var key = MidiTransformTable.getKey(note);
                 if (highC)
                     key = Keys.D8;
+               
                 if (!downKeys.Contains(key))
                 {
-                    InputManager.Keyboard.KeyDown(key);
+                    System.Diagnostics.Trace.WriteLine("high c");
+                  
+                        InputManager.Keyboard.KeyDown(key);
                     downKeys.Add(key);
                 }
                
@@ -167,15 +219,36 @@ namespace midikeyboard3
             else
             {
                 var key = MidiTransformTable.getKey(note);
+                if (highC)
+                    key = Keys.D8;
                 if (downKeys.Contains(key))
                 {
-                    InputManager.Keyboard.KeyUp(key);
+                   
+                    {
+                        InputManager.Keyboard.KeyUp(key);
+                    }
                     downKeys.Remove(key);
                 }
 
             }
+            OctaveChangeLock.ReleaseMutex();
         }
+        public struct keyDelay
+        {
+            public int delay;
+            public bool down;
+            public Keys k;
+        }
+        void delayedKeyDown(object o)
+        {
+            keyDelay key = (keyDelay)o ;
+            System.Threading.Thread.Sleep(key.delay);
+            if (key.down)
+                InputManager.Keyboard.KeyDown(key.k);
+            else
+                InputManager.Keyboard.KeyUp(key.k);
 
+        }
         private void MidiDriver_onNote(string note)
         {
             //ASharp3+
@@ -188,11 +261,13 @@ namespace midikeyboard3
             bool down = note[note.Length - 1] == '+';
             int octave = int.Parse(""+note[note.Length - 2]);
             System.Diagnostics.Trace.WriteLine("msg " + note);
+            if (octave == 6) octave = 5;//for the purpose of note distribution
             if (octave != nudOctaveID.Value && dedicatedOctave) //new play octave is 4 to avoid heartbeat on the main user
             {
                 //todo: transmit note
                 byte[] notemsg = ASCIIEncoding.ASCII.GetBytes(note + ";");
                 if (octave < 2) octave = 2;
+               
                 if (instrumentRegistry.ContainsKey(octave))
                     instrumentRegistry[octave].Client.Send(notemsg);
 
@@ -377,58 +452,69 @@ namespace midikeyboard3
         {
             midiDriver.enableMonitor(cbEnableMonitor.Checked);
         }
-
+        long dynamicDelay = 120;
         private void reconnectTimer_Tick(object sender, EventArgs e)
         {
             int delay = 120;
+            if(!dedicatedOctave) //ping the server you put in to establish a running lag
+            {
+                try
+                {
+                    System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
+                    var reply = p.Send(IPAddress.Parse(tbServerIp.Text));
+                    dynamicDelay = reply.RoundtripTime + 20;
+                    System.Diagnostics.Trace.WriteLine("dynamic delay set to " + dynamicDelay.ToString());
+                }
+                catch { }
+            }
             OctaveChangeLock.WaitOne(1000);
             switch((int)nudOctaveID.Value)
             {
                 case 3:
                      
-                        InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                        doKeyPress(Keys.D0, 25);
                         System.Threading.Thread.Sleep(delay);
-                        InputManager.Keyboard.KeyPress(Keys.D9, 25);
+                        doKeyPress(Keys.D9, 25);
                      System.Threading.Thread.Sleep(delay);
-                        InputManager.Keyboard.KeyPress(Keys.D9, 25);
+                        doKeyPress(Keys.D9, 25);
                         break;
                 case 5:
                         if (nudOctaveID.Value == 5)
                         {
-                            InputManager.Keyboard.KeyPress(Keys.D9, 25);
+                            doKeyPress(Keys.D9, 25);
                             System.Threading.Thread.Sleep(delay);
-                            InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                            doKeyPress(Keys.D0, 25);
                             System.Threading.Thread.Sleep(delay);
-                            InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                            doKeyPress(Keys.D0, 25);
                         }
                         else
                         {
-                            InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                            doKeyPress(Keys.D0, 25);
                             System.Threading.Thread.Sleep(delay);
-                            InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                            doKeyPress(Keys.D0, 25);
                             System.Threading.Thread.Sleep(delay);
-                            InputManager.Keyboard.KeyPress(Keys.D9, 25);
+                            doKeyPress(Keys.D9, 25);
                         }
                         break;
                 case 6:
-                     InputManager.Keyboard.KeyPress(Keys.D9, 25);
+                     doKeyPress(Keys.D9, 25);
                      System.Threading.Thread.Sleep(delay);
-                        InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                        doKeyPress(Keys.D0, 25);
                      System.Threading.Thread.Sleep(delay);
-                        InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                        doKeyPress(Keys.D0, 25);
                         break;
                 case 2:
                     if(currentOctave == 1)
                     {
-                        InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                        doKeyPress(Keys.D0, 25);
                         System.Threading.Thread.Sleep(200);
-                        InputManager.Keyboard.KeyPress(Keys.D9, 25);
+                        doKeyPress(Keys.D9, 25);
                     }
                     else
                     {
-                        InputManager.Keyboard.KeyPress(Keys.D9, 25);
+                        doKeyPress(Keys.D9, 25);
                         System.Threading.Thread.Sleep(200);
-                        InputManager.Keyboard.KeyPress(Keys.D0, 25);
+                        doKeyPress(Keys.D0, 25);
                     }
                     break;
 
@@ -466,7 +552,35 @@ namespace midikeyboard3
             midiDriver.selectMonitor(cbxMonitor.SelectedIndex);
         }
 
+        private void cbArtificialLag_CheckedChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void cbHardwareKeyboard_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbHardwareKeyboard.Checked)
+            {
+                if (hwkeyboard != null && hwkeyboard.IsOpen)
+                {
+                    hwkeyboard.Close();
+                }
+                try
+                {
+                    hwkeyboard = new System.IO.Ports.SerialPort((string)cbxSerialPort.Items[cbxSerialPort.SelectedIndex]);
+
+                    hwkeyboard.Open();
+                }
+                catch { MessageBox.Show("couldn't open com port"); cbHardwareKeyboard.Checked = false; }
+            }
+            else
+            {
+                if (hwkeyboard != null && hwkeyboard.IsOpen)
+                {
+                    hwkeyboard.Close();
+                }
+            }
+        }
     }
 
     public class MidiTransformTable

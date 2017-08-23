@@ -94,5 +94,17 @@ namespace midikeyboard3.Properties {
                 this["midiChannel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string MonitorID {
+            get {
+                return ((string)(this["MonitorID"]));
+            }
+            set {
+                this["MonitorID"] = value;
+            }
+        }
     }
 }

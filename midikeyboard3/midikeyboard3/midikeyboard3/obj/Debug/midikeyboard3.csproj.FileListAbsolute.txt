@@ -11,3 +11,15 @@ C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboar
 C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csproj.GenerateResource.Cache
 C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.exe
 C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.pdb
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.exe.config
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.exe
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.pdb
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.exe
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.pdb
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\InputManager.dll
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\InputSimulator.dll
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\Midi.dll
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csprojResolveAssemblyReference.cache
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Form1.resources
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Properties.Resources.resources
+E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csproj.GenerateResource.Cache

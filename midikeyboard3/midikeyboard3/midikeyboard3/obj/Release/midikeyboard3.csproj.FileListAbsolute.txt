@@ -10,3 +10,6 @@ C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboar
 C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.exe
 C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.pdb
 C:\Users\potato1\Documents\Visual Studio 2013\Projects\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.csprojResolveAssemblyReference.cache
+C:\Users\potato1\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Release\midikeyboard3.exe.config
+C:\Users\potato1\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.exe
+C:\Users\potato1\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Release\midikeyboard3.pdb
