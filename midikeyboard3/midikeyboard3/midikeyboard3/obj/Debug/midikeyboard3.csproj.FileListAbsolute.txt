@@ -23,3 +23,16 @@ E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Deb
 E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Form1.resources
 E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Properties.Resources.resources
 E:\github\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csproj.GenerateResource.Cache
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.exe.config
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.exe
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\midikeyboard3.pdb
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\InputManager.dll
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\InputSimulator.dll
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\bin\Debug\Midi.dll
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csprojResolveAssemblyReference.cache
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Form1.resources
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.Properties.Resources.resources
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csproj.GenerateResource.Cache
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.csproj.CoreCompileInputs.cache
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.exe
+C:\Users\mike\Documents\GitHub\Midi-Keyboarder-Live\midikeyboard3\midikeyboard3\midikeyboard3\obj\Debug\midikeyboard3.pdb

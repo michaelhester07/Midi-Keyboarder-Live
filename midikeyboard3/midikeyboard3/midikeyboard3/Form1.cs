@@ -581,6 +581,196 @@ namespace midikeyboard3
                 }
             }
         }
+        #region midiSampler
+        bool killsampleThread = true;
+        System.Threading.Thread tSampleThread;
+        private void btnSampleMonitor_Click(object sender, EventArgs e)
+        {
+           if(killsampleThread)
+            {
+                killsampleThread = !killsampleThread;
+                tSampleThread = new Thread(sampleThread);
+                tSampleThread.Start();
+
+            }
+           else
+            {
+                killsampleThread = true;
+            }
+        }
+        Dictionary<char, Keys> getCharacterDictionary()
+        {
+            Dictionary<char, Keys> stringlut = new Dictionary<char, Keys>();
+            stringlut.Add('a', Keys.A);
+            stringlut.Add('b', Keys.B);
+            stringlut.Add('c', Keys.C);
+            stringlut.Add('d', Keys.D);
+            stringlut.Add('e', Keys.E);
+            stringlut.Add('f', Keys.F);
+            stringlut.Add('g', Keys.G);
+            stringlut.Add('h', Keys.H);
+            stringlut.Add('i', Keys.I);
+            stringlut.Add('j', Keys.J);
+            stringlut.Add('k', Keys.K);
+            stringlut.Add('l', Keys.L);
+            stringlut.Add('m', Keys.M);
+            stringlut.Add('n', Keys.N);
+            stringlut.Add('o', Keys.O);
+            stringlut.Add('p', Keys.P);
+            stringlut.Add('q', Keys.Q);
+            stringlut.Add('r', Keys.R);
+            stringlut.Add('s', Keys.S);
+            stringlut.Add('t', Keys.T);
+            stringlut.Add('u', Keys.U);
+            stringlut.Add('v', Keys.V);
+            stringlut.Add('w', Keys.W);
+            stringlut.Add('x', Keys.X);
+            stringlut.Add('y', Keys.Y);
+            stringlut.Add('z', Keys.Z);
+            stringlut.Add('A', Keys.A);
+            stringlut.Add('B', Keys.B);
+            stringlut.Add('C', Keys.C);
+            stringlut.Add('D', Keys.D);
+            stringlut.Add('E', Keys.E);
+            stringlut.Add('F', Keys.F);
+            stringlut.Add('G', Keys.G);
+            stringlut.Add('H', Keys.H);
+            stringlut.Add('I', Keys.I);
+            stringlut.Add('J', Keys.J);
+            stringlut.Add('K', Keys.K);
+            stringlut.Add('L', Keys.L);
+            stringlut.Add('M', Keys.M);
+            stringlut.Add('N', Keys.N);
+            stringlut.Add('O', Keys.O);
+            stringlut.Add('P', Keys.P);
+            stringlut.Add('Q', Keys.Q);
+            stringlut.Add('R', Keys.R);
+            stringlut.Add('S', Keys.S);
+            stringlut.Add('T', Keys.T);
+            stringlut.Add('U', Keys.U);
+            stringlut.Add('V', Keys.V);
+            stringlut.Add('W', Keys.W);
+            stringlut.Add('X', Keys.X);
+            stringlut.Add('Y', Keys.Y);
+            stringlut.Add('Z', Keys.Z);
+            stringlut.Add('1', Keys.D1);
+            stringlut.Add('2', Keys.D2);
+            stringlut.Add('3', Keys.D3);
+            stringlut.Add('4', Keys.D4);
+            stringlut.Add('5', Keys.D5);
+            stringlut.Add('6', Keys.D6);
+            stringlut.Add('7', Keys.D7);
+            stringlut.Add('8', Keys.D8);
+            stringlut.Add('9', Keys.D9);
+            stringlut.Add('0', Keys.D0);
+            return stringlut;
+        }
+        void inputManagerTypeString(string s)
+        {
+            var lut = getCharacterDictionary();
+            foreach(char c in s)
+            {
+                if (lut.ContainsKey(c))
+                {
+                    System.Diagnostics.Trace.WriteLine(c);
+
+                    InputManager.Keyboard.KeyPress(lut[c], 100);
+                    System.Threading.Thread.Sleep(100);
+
+                }
+                   
+            }
+
+        }
+        delegate void updateProgDelegate(int cur, int max);
+        void updateProgress(int cur, int max)
+        {
+            if(this.InvokeRequired)
+            {
+                BeginInvoke(new updateProgDelegate(updateProgress), cur, max);
+                return;
+            }
+            pbSampleProgress.Maximum = max;
+            pbSampleProgress.Value = cur;
+        }
+        void sampleThread(object o)
+        {
+            System.Threading.Thread.Sleep(5000);
+            int count = 0;
+            int max = 128 * 4;
+            for (int i = 0; i <= 127; i++)
+            {
+                for (int speed = 127; speed > 0; speed -= 32)
+                {
+                    if (killsampleThread)
+                        return;
+                    if(count < max)
+                        updateProgress(count, max);
+                    count++;
+
+                    //start the recording
+                    //todo: set recorder foreground
+                    bool win7 = setRecorderForeground();
+                  //  if(win7)
+                   // {
+
+                  //  }
+                  //  else
+                    {
+                        
+                        InputManager.VirtualKeyboard.KeyPress(Keys.Menu);
+                        System.Threading.Thread.Sleep(100);
+
+                        InputManager.VirtualKeyboard.KeyPress(Keys.R, 100);
+                       
+                    }
+                    string notetext = Enum.GetName(typeof(Midi.Pitch), (Midi.Pitch)i) + "S"+speed;
+
+                    //todo: start recorder
+                    midiDriver.SendMonitor(Midi.Channel.Channel1, (Midi.Pitch)i, speed, true);
+                    System.Threading.Thread.Sleep(10000);
+                    midiDriver.SendMonitor(Midi.Channel.Channel1, (Midi.Pitch)i, speed, false);
+                    //todo: stop recording
+                    //windows 10, have to click rename here
+                   // if (win7)
+                   // {
+
+                   // }
+                  //  else
+                    {
+                        //InputManager.Keyboard.KeyDown(Keys.RControlKey);
+                        InputManager.VirtualKeyboard.KeyPress(Keys.Menu);
+                        System.Threading.Thread.Sleep(100);
+                       
+                        InputManager.VirtualKeyboard.KeyPress(Keys.S, 100);
+                        System.Threading.Thread.Sleep(500);
+                        InputManager.VirtualKeyboard.KeyPress(Keys.Menu);
+                        System.Threading.Thread.Sleep(100);
+                        InputManager.VirtualKeyboard.KeyPress(Keys.E, 100);
+                        System.Threading.Thread.Sleep(100);
+                       
+                        inputManagerTypeString(notetext);
+                        InputManager.VirtualKeyboard.KeyPress(Keys.Enter, 100);
+                        System.Threading.Thread.Sleep(500);
+                        // InputManager.Keyboard.KeyUp(Keys.RControlKey);
+                    }
+                }
+            }
+        }
+        bool setRecorderForeground()
+        {
+            bool ret = false;
+            var Guildwars2 = System.Diagnostics.Process.GetProcessesByName("soundRec");
+            if (Guildwars2.Length == 0)
+            {
+                ret = true;
+                Guildwars2 = System.Diagnostics.Process.GetProcessesByName("Sound Recorder");
+            }
+            if (Guildwars2.Length != 0)
+                SetForegroundWindow(Guildwars2[0].MainWindowHandle);
+            return ret;
+        }
+        #endregion
     }
 
     public class MidiTransformTable
@@ -809,6 +999,16 @@ namespace midikeyboard3
             }
             if (monitorEnabled)
                 myOutputDevices[selectedMonitor].SendNoteOn(Midi.Channel.Channel1, msg.Pitch, msg.Velocity);
+        }
+        public void SendMonitor(Midi.Channel channel, Midi.Pitch pitch, int speed, bool on)
+        {
+            if (monitorEnabled)
+            {
+                if(on)
+                    myOutputDevices[selectedMonitor].SendNoteOn(channel, pitch, speed);
+                else
+                    myOutputDevices[selectedMonitor].SendNoteOff(channel, pitch, speed);
+            }
         }
     }
 }
